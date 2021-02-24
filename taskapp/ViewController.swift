@@ -9,7 +9,9 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+    
+    @IBOutlet weak var seachBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     // Realmインスタンスを取得する
@@ -24,9 +26,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-                tableView.delegate = self
-                tableView.dataSource = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        seachBar.delegate = self
+        
     }
+    
     // データの数（＝セルの数）を返すメソッド
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return taskArray.count
@@ -122,6 +127,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
            tableView.reloadData()
        }
     
-
+   
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        
+        var text = seachBar.text
+        // Query using a predicate string
+        var task = realm.objects(Task.self).filter("category = %@" , text)
+        tableView.reloadData()
+      
+    }
 }
 
