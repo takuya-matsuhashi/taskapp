@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
         tableView.delegate = self
         tableView.dataSource = self
         seachBar.delegate = self
@@ -130,11 +130,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
-        var text = seachBar.text
-        // Query using a predicate string
-        var task = realm.objects(Task.self).filter("category = %@" , text)
+        if let text = seachBar.text{
+            
+            let predicate = NSPredicate(format: "category = %@" , text)
+            
+            // Query using a predicate string
+            var task = realm.objects(Task.self).filter(predicate)
+            
+        }
+      
+        //検索絞り込み
+        
         tableView.reloadData()
       
-    }
+    
+        }
+    
 }
 
