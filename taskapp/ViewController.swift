@@ -123,8 +123,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     // 入力画面から戻ってきた時に TableView を更新させる
        override func viewWillAppear(_ animated: Bool) {
+        
            super.viewWillAppear(animated)
            tableView.reloadData()
+        
        }
     
    
@@ -135,7 +137,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let predicate = NSPredicate(format: "category = %@" , text)
             
             // Query using a predicate string
-            var task = realm.objects(Task.self).filter(predicate)
+            taskArray = realm.objects(Task.self).filter(predicate)
             
         }
       
