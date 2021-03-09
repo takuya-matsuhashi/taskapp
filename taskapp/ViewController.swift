@@ -139,6 +139,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Query using a predicate string
             taskArray = realm.objects(Task.self).filter(predicate)
             
+           
+            
         }
       
         //検索絞り込み
