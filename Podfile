@@ -7,4 +7,5 @@ target 'taskapp' do
 
   # Pods for taskapp
   pod 'RealmSwift','5.1.0'
+
 end

@@ -94,13 +94,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 }
             } // --- ここまで変更 ---
             
-            if editingStyle == .delete {
-                       // データベースから削除する
-                       try! realm.write {
-                           self.realm.delete(self.taskArray[indexPath.row])
-                           tableView.deleteRows(at: [indexPath], with: .fade)
-                       }
-                   }
+
         }
     
     // segue で画面遷移する時に呼ばれる
@@ -132,23 +126,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
-        if let text = seachBar.text{
-            
-            let predicate = NSPredicate(format: "category = %@" , text)
-            
+        if seachBar.text == "" {
+            taskArray = realm.objects(Task.self).sorted(byKeyPath: "date", ascending: true)
+        }else{
+
+            let predicate = NSPredicate(format: "category contains [c] %@" , seachBar.text!)
+
             // Query using a predicate string
-            taskArray = realm.objects(Task.self).filter(predicate)
-            
-           
-            
+            taskArray = realm.objects(Task.self).filter(predicate).sorted(byKeyPath: "date", ascending: true)
         }
-      
         //検索絞り込み
         
         tableView.reloadData()
       
-    
         }
-    
 }
 
