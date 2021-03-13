@@ -124,7 +124,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
        }
     
    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         if seachBar.text == "" {
             taskArray = realm.objects(Task.self).sorted(byKeyPath: "date", ascending: true)
